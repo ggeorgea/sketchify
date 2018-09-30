@@ -138,7 +138,7 @@ def generateDescriptor(fragment1,height,width, local = 3):
 
 
 
-img = cv2.imread('man.jpg')
+img = cv2.imread('Asterix2.jpg')
 height, width, channels = img.shape
 #img = cv2.fastNlMeansDenoisingColored(img,None,20,20,7,21)
 img = cv2.fastNlMeansDenoisingColored(img,None,10,10,7,21)
