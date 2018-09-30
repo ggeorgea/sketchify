@@ -1,0 +1,43 @@
+The file containing my combined method can be run as normal using python 3.6 if the appropriate libraries are installed. 
+Other non-main files can be tested also as is, or with minimal modification i.e. uncommenting a call to to the function.
+'functionMisc' contains explicit testing functions, the other files were tested through the creation of images.
+
+---Individual methods:
+
+'repeatReplacmentEx' implements a method to repeatedly replace sections of a shape
+
+'relevanceSelection' uses relevance to choose a selection of fragments
+
+---Used in the final combined method:
+
+exampleImage.png is just used as a general guide to dimensions
+
+'functionMisc' contains multiple utility functions employed in pretty much every other method (called in 'M1M5Multi', 'optimusPrime', 'combinedMethod', 'optimusPrimeOne', 'M1M5Multi', 'connectFrags', 'repeatReplacmentEx', 'SplineMethods', 'optimusPrime', 'combinedMethod', 'optimusPrimeOne', 'M1M5Multi', 'connectFrags', 'repeatReplacmentEx', 'SplineMethods', 'optimusPrime', 'combinedMethod', 'optimusPrimeOne.py')
+
+'connectFrags' contains a method to add new fragments to a set of connected fragments (called in 'M1M5Multi', 'SplineMethods', 'optimusPrime', 'combinedMethod', 'optimusPrimeOne')
+
+'SplineMethods' contains the spline creation methods for independant examination, for combining with repeated replacement, and for use in the final combined method (called in 'M1M5Multi', 'optimusPrime', 'combinedMethod', 'optimusPrimeOne')
+
+'combinedMethod' contains the final combined method
+
+
+---previous versions of the final method found in previous versions folder:
+'optimusPrime' method used in creation of results set 1
+'optimusPrimeOne' the above with a few variations
+'M1M5Multi' is an earlier version that adds multiple fragments together in a simpler way
+
+
+---Files for extraction of information from images:
+
+'mytest' samples fragments, creates descriptors and the accompining information related fragments to images
+
+'addLength' records the lengths of the contours extracted from the images
+
+'addSize' records the sizes of the shapes extracted from the images
+
+
+---Other:
+
+'picturesRev' is a folder for the use of the 'mytestRev' 
+
+'mytestRev' is a just a utility for manipulating images using openCV and is not referenced in my project
