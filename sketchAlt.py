@@ -29,6 +29,7 @@ functionMisc.fill(([0,0],[10,10]))
 # add random noise edges
 # with % chance adjustable
 
+#movement by tile? restricted convolution
 
 # get perm edge library extracted from existing dataset 
 # get ANN
@@ -138,180 +139,216 @@ def generateDescriptor(fragment1,height,width, local = 3):
 
 
 
-img = cv2.imread('Asterix2.jpg')
-height, width, channels = img.shape
-#img = cv2.fastNlMeansDenoisingColored(img,None,20,20,7,21)
-img = cv2.fastNlMeansDenoisingColored(img,None,10,10,7,21)
-edges = cv2.Canny(img,100,200)
-kernel = np.ones((2,2),np.uint8)
-dilation = cv2.dilate(edges,kernel,iterations = 1)
-im3, Ocontours, hierarchy = cv2.findContours(dilation,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
-c2 = []
-forgotten = []
-for cont in Ocontours:
-  #print(len(cont))
-  if len(cont)>10:
-    c2.append(cont)
-  elif len(cont)>4: 
-  	forgotten.append(cont[:len(cont)//2])
-contours = c2
-#print(forgotten)
-# top = [] 
-# bot = []
-# left = []
-# right = []
-# for x in range(0,width):
-# 	top.append([x,0])
-# 	bot.append([width-x,height])
-# for y in range(0,height):
-# 	right.append([width,y])
-# 	left.append([0,height-y])
-# outerContour = top + right + bot+ left
-blank_image = np.zeros((height,width,3), np.uint8)
+#img = cv2.imread('../Multiracial/MM0906_2101_00F.jpg')
+
+#===================================================================================
+#===================================================================================
+#===================================================================================
+#===================================================================================
+#===================================================================================
+#===================================================================================
+#===================================================================================
+#===================================================================================
+#===================================================================================
+#===================================================================================
+#===================================================================================
+#===================================================================================
+
+def petsketch(img):
+	height, width, channels = img.shape
+	#img = cv2.fastNlMeansDenoisingColored(img,None,20,20,7,21)
+	img = cv2.fastNlMeansDenoisingColored(img,None,10,10,7,21)
+	edges = cv2.Canny(img,70,200)
+	kernel = np.ones((2,2),np.uint8)
+	dilation = cv2.dilate(edges,kernel,iterations = 1)
+	im3, Ocontours, hierarchy = cv2.findContours(dilation,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
+	c2 = []
+	forgotten = []
+	for cont in Ocontours:
+	  #print(len(cont))
+	  if len(cont)>10:
+	    c2.append(cont)
+	  elif len(cont)>4: 
+	  	forgotten.append(cont[:len(cont)//2])
+	contours = c2
+	#print(forgotten)
+	# top = [] 
+	# bot = []
+	# left = []
+	# right = []
+	# for x in range(0,width):
+	# 	top.append([x,0])
+	# 	bot.append([width-x,height])
+	# for y in range(0,height):
+	# 	right.append([width,y])
+	# 	left.append([0,height-y])
+	# outerContour = top + right + bot+ left
+	blank_image = np.zeros((height,width,3), np.uint8)
 
 
-# im = cv2.imread("ex3.png")
-# #im = cv2.imread("circle2.png")
-# height, width, channels = im.shape
-# imgray = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
-# ret,thresh = cv2.threshold(imgray,127,255,0)
-# height, width, channels = im.shape
-# im3, contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
-# blank_image = np.zeros((height,width,3), np.uint8)
+	# im = cv2.imread("ex3.png")
+	# #im = cv2.imread("circle2.png")
+	# height, width, channels = im.shape
+	# imgray = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
+	# ret,thresh = cv2.threshold(imgray,127,255,0)
+	# height, width, channels = im.shape
+	# im3, contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_NONE)
+	# blank_image = np.zeros((height,width,3), np.uint8)
 
 
 
 
 
-# # startlistOfPoints = []
-# # for ind, x in enumerate(contours[1]):
-# # 	xval = x[0][0]
-# # 	yval = x[0][1]
-# # 	startlistOfPoints.append([yval, xval])
-# # listOfPoints= np.array(startlistOfPoints)
+	# # startlistOfPoints = []
+	# # for ind, x in enumerate(contours[1]):
+	# # 	xval = x[0][0]
+	# # 	yval = x[0][1]
+	# # 	startlistOfPoints.append([yval, xval])
+	# # listOfPoints= np.array(startlistOfPoints)
 
 
-# #blank_image = np.zeros(((height*4)//2,((width*4)//2),3), np.uint8)
+	# #blank_image = np.zeros(((height*4)//2,((width*4)//2),3), np.uint8)
 
 
-outerContour = []
-for ind, x in enumerate(contours[0]):
-	xval = x[0][0]
-	yval = x[0][1]
-	outerContour.append([yval, xval])
-# for x in outerContour:
-# 	xval = x[1]
-# 	yval = x[0]
-# 	blank_image[yval][xval]=[0,255,255]
-
-
-folderName = "flatfish"
-
-
-frags = testFrags
-
-for cont in range(1,len(contours)):
-	print("onto ",cont," out of ",len(contours),len(contours[cont]))
-	sys.stdout.flush()
-	startlistOfPoints = []
-	for ind, x in enumerate(contours[cont]):
+	outerContour = []
+	for ind, x in enumerate(contours[0]):
 		xval = x[0][0]
 		yval = x[0][1]
-		startlistOfPoints.append([yval, xval])
-	listOfPoints= np.array(startlistOfPoints)
+		outerContour.append([yval, xval])
+	# for x in outerContour:
+	# 	xval = x[1]
+	# 	yval = x[0]
+	# 	blank_image[yval][xval]=[0,255,255]
 
 
-	steps = 10
-
-	#maxAttempts = 1
-	adjusted2 = listOfPoints
-	fails = 0
-
-	for x in range(0,steps):
-
-		# selection = []
-		# distances = []
-
-		crossing = True
-		while crossing:	
-			if fails>0:
-				fails = 0
-				break
-			#historic = adjusted2
-			if(len(adjusted2)<10):
-				break
-			elif(len(adjusted2)<100):
-				select = getRandomSection(len(adjusted2),len(adjusted2)//3, len(adjusted2)//6)
-			else:
-				select = getRandomSection(len(adjusted2),len(adjusted2)//10, len(adjusted2)//15)
-
-			adjusted2 = adjustRoundList(adjusted2,math.floor(select[1]),math.floor(select[0]))
-
-			sz  = 1
-			if(select[0]> select[1]):
-				sz = select[0]-select[1]
-			else:
-				sz = len(adjusted2) - select[1] + select[0]
-			
-			subfrag = adjusted2[math.floor((len(adjusted2)//3)):math.floor((len(adjusted2)//3))+math.floor(sz):1]
+	folderName = "flatfish"
 
 
-			subdesc = generateDescriptor(subfrag,height,width)
+	frags = testFrags
 
-			myResult, myDistance = flann.nn_index(subdesc, 5, algorithm="kmeans", branching=32, iterations=7, checks=16)
-			frg = frags[myResult[0][0]]
-
-			relation = functionMisc.relatePoints( adjusted2[len(adjusted2)//3],frg[0])
-			
-			transdEdge =  functionMisc.rotateEdgeToEdge(adjusted2[len(adjusted2)//3],adjusted2[math.floor((len(adjusted2)//3))+math.floor(sz)], frg)
-
-			transdEdge2 = functionMisc.ratioTransfer(adjusted2[math.floor((len(adjusted2)//3))+math.floor(sz)],transdEdge)
-			if len(transdEdge2) == 0:
-				fails = fails+1
-				#print("lenfail length of frg ",len(frg), " sz ",sz)
-				#break
-			if fails<1:
-			#crossing = functionMisc.ecross(outerContour,transdEdge2) or (functionMisc.ecross(adjusted2[0 : math.floor((len(adjusted2)//3))-1 : 1],transdEdge2) or functionMisc.ecross(adjusted2[math.floor((len(adjusted2)//3))+math.floor(sz)+1 : len(adjusted2) : 1], transdEdge2))
-			#CAUSE WE NO LONGER CARE
-				crossing = functionMisc.ecross(outerContour,transdEdge2)
-				if not crossing:
-					adjusted2 = np.concatenate((np.concatenate((adjusted2[0 : math.floor((len(adjusted2)//3)) : 1],transdEdge2)),adjusted2[math.floor((len(adjusted2)//3))+math.floor(sz) : len(adjusted2) : 1]))
-	
-	for x in adjusted2:
-		xval = x[1]
-		yval = x[0]
-		blank_image[yval][xval]=[255,255,255]
-
-print("fails: ",fails)
-
-for line in forgotten:
-	for x in line:
-		yval = x[0][1]
-		xval = x[0][0]
-		blank_image[yval][xval]=[255,255,255]
+	for cont in range(1,len(contours)):
+		# print("onto ",cont," out of ",len(contours),len(contours[cont]))
+		# sys.stdout.flush()
+		startlistOfPoints = []
+		for ind, x in enumerate(contours[cont]):
+			xval = x[0][0]
+			yval = x[0][1]
+			startlistOfPoints.append([yval, xval])
+		listOfPoints= np.array(startlistOfPoints)
 
 
+		steps = 10
+
+		#maxAttempts = 1
+		adjusted2 = listOfPoints
+		fails = 0
+
+		for x in range(0,steps):
+
+			# selection = []
+			# distances = []
+
+			crossing = True
+			while crossing:	
+				if fails>0:
+					fails = 0
+					break
+				#historic = adjusted2
+				if(len(adjusted2)<10):
+					break
+				elif(len(adjusted2)<100):
+					select = getRandomSection(len(adjusted2),len(adjusted2)//3, len(adjusted2)//6)
+				else:
+					select = getRandomSection(len(adjusted2),len(adjusted2)//10, len(adjusted2)//15)
+
+				adjusted2 = adjustRoundList(adjusted2,math.floor(select[1]),math.floor(select[0]))
+
+				sz  = 1
+				if(select[0]> select[1]):
+					sz = select[0]-select[1]
+				else:
+					sz = len(adjusted2) - select[1] + select[0]
+				
+				subfrag = adjusted2[math.floor((len(adjusted2)//3)):math.floor((len(adjusted2)//3))+math.floor(sz):1]
 
 
-# cv2.imshow('Edges',blank_image)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
+				subdesc = generateDescriptor(subfrag,height,width)
 
-plt.subplot(131),plt.imshow(img,cmap = 'gray')
-plt.title('original Image'), plt.xticks([]), plt.yticks([])
+				myResult, myDistance = flann.nn_index(subdesc, 5, algorithm="kmeans", branching=32, iterations=7, checks=16)
+				frg = frags[myResult[0][0]]
+
+				relation = functionMisc.relatePoints( adjusted2[len(adjusted2)//3],frg[0])
+				
+				transdEdge =  functionMisc.rotateEdgeToEdge(adjusted2[len(adjusted2)//3],adjusted2[math.floor((len(adjusted2)//3))+math.floor(sz)], frg)
+
+				transdEdge2 = functionMisc.ratioTransfer(adjusted2[math.floor((len(adjusted2)//3))+math.floor(sz)],transdEdge)
+				if len(transdEdge2) == 0:
+					fails = fails+1
+					#print("lenfail length of frg ",len(frg), " sz ",sz)
+					#break
+				if fails<1:
+				#crossing = functionMisc.ecross(outerContour,transdEdge2) or (functionMisc.ecross(adjusted2[0 : math.floor((len(adjusted2)//3))-1 : 1],transdEdge2) or functionMisc.ecross(adjusted2[math.floor((len(adjusted2)//3))+math.floor(sz)+1 : len(adjusted2) : 1], transdEdge2))
+				#CAUSE WE NO LONGER CARE
+					crossing = functionMisc.ecross(outerContour,transdEdge2)
+					if not crossing:
+						#transdEdge2
+						#adjusted2[0 : math.floor((len(adjusted2)//3)) : 1]
+						partReplacing = adjusted2[ math.floor((len(adjusted2)//3)) : math.floor((len(adjusted2)//3))+math.floor(sz) : 1]
+						newTransdEdge = []
+						# maxp = 5
+						# petx = random.randint(-maxp,maxp) * random.randint(-maxp,maxp)
+						# pety = random.randint(-maxp,maxp) * random.randint(-maxp,maxp)
+						petx = 0
+						pety = 0
+						for ind in range(0,len(transdEdge2)):
+							p = transdEdge2[ind]
+							q = partReplacing[(len(partReplacing)*ind)//len(transdEdge2)]
+
+							newTransdEdge.append([petx + q[0]  -  (-p[0]+q[0])//1 , pety  +  q[1]    - (-p[1]+q[1])//1])
+						transdEdge2 = newTransdEdge
+						adjusted2 = np.concatenate((np.concatenate((adjusted2[0 : math.floor((len(adjusted2)//3)) : 1],transdEdge2)),adjusted2[math.floor((len(adjusted2)//3))+math.floor(sz) : len(adjusted2) : 1]))
+		
+		for x in adjusted2:
+			xval = x[1]
+			yval = x[0]
+			blank_image[yval][xval]=[255,255,255]
+
+	#print("fails: ",fails)
+
+	for line in forgotten:
+		for x in line:
+			yval = x[0][1]
+			xval = x[0][0]
+			blank_image[yval][xval]=[255,255,255]
 
 
-blank_image2 = np.zeros((height,width,3), np.uint8)
-cv2.drawContours(blank_image2, Ocontours, -1, (255,255,255), 1)
-plt.subplot(132),plt.imshow(blank_image2,cmap = 'gray')
-plt.title('contour Image'), plt.xticks([]), plt.yticks([])
-
-plt.subplot(133),plt.imshow(blank_image,cmap = 'gray')
-plt.title('peturbed Image'), plt.xticks([]), plt.yticks([])
 
 
+	# cv2.imshow('Edges',blank_image)
+	# cv2.waitKey(0)
+	# cv2.destroyAllWindows()
 
-plt.show()
+
+	return blank_image
+# blank_image = petsketch(img)
+
+
+# # plt.subplot(131),plt.imshow(img,cmap = 'gray')
+# # plt.title('original Image'), plt.xticks([]), plt.yticks([])
+
+
+# # blank_image2 = np.zeros((height,width,3), np.uint8)
+# # cv2.drawContours(blank_image2, Ocontours, -1, (255,255,255), 1)
+# # plt.subplot(132),plt.imshow(blank_image2,cmap = 'gray')
+# # plt.title('contour Image'), plt.xticks([]), plt.yticks([])
+# #
+# # plt.subplot(133),plt.imshow(blank_image,cmap = 'gray')
+# plt.subplot(111),plt.imshow(blank_image,cmap = 'gray')
+# plt.title('peturbed Image'), plt.xticks([]), plt.yticks([])
+
+
+
+# plt.show()
 
 
 def betterRotTest():
